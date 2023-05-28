@@ -1,0 +1,40 @@
+syntax = "proto3";
+package tectonic;
+
+message PutChunkRequest {
+	string chunk_id = 1;
+	bytes data = 2;
+}
+
+message PutChunkResponse {}
+
+message GetChunkRequest {
+	string chunk_id = 1;
+	uint64 offset = 2;
+	uint64 length = 3;
+}
+
+message GetChunkResponse {
+	bytes data = 1;
+}
+
+message DeleteChunkRequest {
+	string chunk_id = 1;
+}
+
+message DeleteChunkResponse {}
+
+message AppendChunkRequest {
+	string chunk_id = 1;
+	bytes data = 2;
+}
+
+message AppendChunkResponse {}
+
+service DataNode {
+	rpc PutChunk(PutChunkRequest) returns (PutChunkResponse);
+	rpc GetChunk(GetChunkRequest) returns (GetChunkResponse);
+	rpc DeleteChunk(DeleteChunkRequest) returns (DeleteChunkResponse);
+	rpc AppendChunk(AppendChunkRequest) returns (AppendChunkResponse);
+	// rpc ListChunks(ListChunksRequest) returns (ListChunksResponse);
+}
